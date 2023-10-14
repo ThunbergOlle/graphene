@@ -3,17 +3,14 @@
   import { stores } from "../../../lib/database/Store";
   export let enableNext: boolean | undefined;
 
-  let pathValid: boolean | undefined;
   let minecraftPath: string | undefined;
 
   export function onNext() {
-    if (pathValid && minecraftPath) {
+    if (enableNext && minecraftPath) {
       stores.settings.set("minecraftPath", minecraftPath);
     }
   }
-
-  $: enableNext = pathValid;
 </script>
 
 <p>To setup the modpack manager, define where minecraft is located</p>
-<MinecraftPathInput bind:valid={pathValid} bind:minecraftPath />
+<MinecraftPathInput bind:valid={enableNext} bind:minecraftPath />
