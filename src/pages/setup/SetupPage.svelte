@@ -6,7 +6,8 @@
   let steps = [MinecraftPath, MinecraftProfile];
 
   let currentStep = 0;
-  let currentStepComponent: { onNext: () => void };
+  let currentStepComponent: MinecraftPath | MinecraftProfile;
+  let enableNext: boolean | undefined;
 
   function onNextStep() {
     if (currentStep < steps.length) {
@@ -16,6 +17,7 @@
     }
     done();
   }
+
   function done() {
     console.log("done");
   }
@@ -27,7 +29,7 @@
     {#each steps as Step, i}
       {#if i === currentStep}
         <div class="flex flex-col items-center">
-          <Step bind:this={currentStepComponent} />
+          <Step bind:this={currentStepComponent} bind:enableNext />
         </div>
       {/if}
     {/each}
@@ -39,7 +41,10 @@
       on:click={() => currentStep--}>Previous</Button
     >
 
-    <Button variant="primary" on:click={onNextStep}
+    <Button
+      variant="primary"
+      on:click={onNextStep}
+      disabled={enableNext === false}
       >{currentStep === steps.length - 1 ? "Done" : "Next"}</Button
     >
   </div>

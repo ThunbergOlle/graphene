@@ -1,4 +1,5 @@
 <script lang="ts">
+  export let enableNext: boolean = true;
   export function onNext() {
     console.log("Next");
   }

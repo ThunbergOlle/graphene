@@ -5,8 +5,8 @@
   import Button from "./ui/Button.svelte";
   import Input from "./ui/Input.svelte";
 
-  let minecraftPath = "";
-  let valid = true;
+  export let minecraftPath = "";
+  export let valid: boolean | undefined;
 
   onMount(async () => {
     minecraftPath = await invoke("default_path");
@@ -35,6 +35,8 @@
   <Button variant="secondary" on:click={openPathPicker}>Choose location</Button>
 </div>
 
-<p class={`text-red-500 opacity-${valid ? "0" : "100"}`}>
-  Please choose a valid path
-</p>
+{#if valid}
+  <p class="text-green-500">OK path</p>
+{:else}
+  <p class="text-red-500">Invalid path</p>
+{/if}
